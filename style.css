@@ -1,0 +1,19 @@
+.tag , .tagselected{
+	margin-left:5px;
+}
+
+.card{
+	margin-bottom: 15px;
+}
+
+.badge.badge-primary {
+	cursor:pointer;
+}
+
+.badge.badge-primary:hover{
+	opacity: 0.8;
+}
+
+.page-header{
+	padding:25px;
+}
