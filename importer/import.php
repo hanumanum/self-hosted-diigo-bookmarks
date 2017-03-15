@@ -1,4 +1,9 @@
 <?php
+$stag = "";
+if(isset($_GET["tag"])){
+	$stag = $_GET["tag"];
+}
+
 $csvFile = 'bookmarks/3453463_csv_2017_02_24_1106e/3453463_csv_2017_02_24_1106e.csv';
 //$csv = array_map('str_getcsv', file('bookmarks/3453463_csv_2017_02_24_1106e/3453463_csv_2017_02_24_1106e.csv'));
 
@@ -18,10 +23,16 @@ while (($line = fgetcsv($file,'","')) !== FALSE) {
 	$bookmark = new StdClass();	
 	$bookmark->title = str_replace("/"," ",$line[0]);
 	//$bookmark->title = $line[0];
+	
 	$bookmark->url = $line[1];
 	$bookmark->tags = explode(",", $line[2]);
 	$bookmark->tags = str_replace("\""," ",$bookmark->tags);
-	
+	if($stag!=="" && array_search($stag,$bookmark->tags)===false){
+		//print_r($bookmark->tags); 
+		unset($bookmark);
+		continue;
+	}
+
 	$bookmark->annotations=[];
 	$annotAndHiglights = [];
 	if($line[3]){
@@ -34,9 +45,9 @@ while (($line = fgetcsv($file,'","')) !== FALSE) {
 
 	$bookmark->date = $line[6];
 
-	array_push($bookmarkRegistry->boomarks, $bookmark) ;
+	array_push($bookmarkRegistry->boomarks, $bookmark);
 	$tmp++;
-	if($tmp==500){
+	if($tmp==120 && $stag==""){
 		break;
 	}
 }

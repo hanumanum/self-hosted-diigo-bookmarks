@@ -1,18 +1,29 @@
 var diigoBookmarks = angular.module("diigoBookmarks", ["ngRoute"]); 
 var allTags = new tagsRegistry();
 
+diigoBookmarks.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+         controller : "dataloaderController",
+			templateUrl : "bookmarklist.html"
+    })
+    .when("/tag/:tagname", {
+        controller : "tagController",
+		  templateUrl : "bookmarklist.html"
+    })
+});
 
-diigoBookmarks.controller("dataloader", function($scope,$http) {
-    	$http.get("importer/import.php")
+
+diigoBookmarks.controller("dataloaderController", function($scope,$http) {
+		 $http.get("importer/import.php")
     		.then(function(response) {
-        			
         			$scope.tagsFilter="";
         			$scope.bookmarks = response.data.boomarks;
         			angular.forEach($scope.bookmarks, function(bookmark, key) {
-				angular.forEach(bookmark.tags,function(tag,key){
-					allTags.addTag(tag);
-				}); 
-			});
+						angular.forEach(bookmark.tags,function(tag,key){
+							allTags.addTag(tag);
+						}); 
+					});
         			$scope.tags = allTags.getTags("");
 
         			$scope.$watch("tagsFilter", function(newValue, oldValue) {
@@ -28,6 +39,31 @@ diigoBookmarks.controller("dataloader", function($scope,$http) {
 });
 
 
+
+diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
+	  $http.get("importer/import.php?tag="+$routeParams.tagname)
+    		.then(function(response) {
+        			$scope.tagsFilter="";
+        			$scope.bookmarks = response.data.boomarks;
+        			angular.forEach($scope.bookmarks, function(bookmark, key) {
+						angular.forEach(bookmark.tags,function(tag,key){
+							allTags.addTag(tag);
+						}); 
+					});
+        			$scope.tags = allTags.getTags("");
+
+        			$scope.$watch("tagsFilter", function(newValue, oldValue) {
+			      $scope.tags = allTags.getTags(newValue); 
+			  });
+
+        			
+
+    		}, function(response) {
+        			//Second function handles error
+        			$scope.bookmarks = "Something went wrong";
+    		});
+
+});
 
 diigoBookmarks.controller("bookmarks_list", function($scope) {
      

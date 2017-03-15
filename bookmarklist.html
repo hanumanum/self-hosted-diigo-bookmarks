@@ -1,0 +1,34 @@
+
+			<form name="searchform">
+					<input type="text" class="form-control" placeholder="search">
+			</form>
+
+			<hr>
+			<div class="" id="bookmarks">
+				<div id="forspinner" ng-hide="bookmarks" class="text-center">
+					<i class="fa fa-spinner fa-spin fa-5x fa-fw" id="spinner"></i>
+				</div>
+				<div class="card" ng-repeat="b in bookmarks track by $index">
+					<div class="card-block">
+						<h3 class="card-title">{{b.title}}</h3>
+						<div class="card-text">
+							<p ng-repeat="a in b.annotations track by $index">{{a}}</p>
+							<i class="fa fa-external-link" aria-hidden="true">	
+								<a href="{{b.url}}" rel="nofollow" target="_blank">{{b.url.substring(0, 50)}} ...</a>
+							</i>
+						</div>
+						<div class="tags">
+							<i class="fa fa-tags" aria-hidden="true">
+								<span ng-repeat="t in b.tags track by $index">
+									<a ng-href="#tag/{{t}}">
+										<span class="tag badge badge-primary" >
+											{{t}}
+										</span>
+									</a>
+								</span>
+							</i>
+						</div>
+					</div>
+				</div>
+			</div>
+
