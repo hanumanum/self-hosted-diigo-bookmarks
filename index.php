@@ -26,8 +26,10 @@
 			<h3>All tags</h3>
 			<input type="text" name="searchtags" id="searchtags" class="form-control" placeholder="filter all tags" ng-model="tagsFilter">
 			<br>
-			<div id="tags-list">
-				<span class="tag badge badge-primary" ng-repeat="t in tags" ng-show="t.showThis" ng-click="t.selected=true">{{t.tag}} ({{t.count}})</span>
+			<div id="tags-list" ng-controller="tagListController">
+				<a ng-repeat="(key,val) in alltags" ng-href="#/tag/{{key}}">
+					<span class="tag badge badge-primary"  >{{key}} ({{val}})</span>
+				</a>
 			</div>
 		</div>
 	</div>

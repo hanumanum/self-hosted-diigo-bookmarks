@@ -13,7 +13,6 @@ diigoBookmarks.config(function($routeProvider) {
     })
 });
 
-
 diigoBookmarks.controller("dataloaderController", function($scope,$http) {
 		 $http.get("importer/import.php")
     		.then(function(response) {
@@ -65,14 +64,25 @@ diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
 
 });
 
-diigoBookmarks.controller("bookmarks_list", function($scope) {
-     
+diigoBookmarks.controller("tagListController", function($scope,$http,$location) {
+     $http.get("importer/alltags.php")
+    		.then(function(response) {
+        			$scope.alltags = response.data;
+					  console.log(response.data);
+
+    		}, function(response) {
+        			//Second function handles error
+        			$scope.alltags = "Something went wrong";
+    		});
+
+
+	$scope.go = function ( path ) {
+		$location.path( path );
+	};		 
 });
 
 
-diigoBookmarks.controller("tags_list", function($scope) {
-   
-});
+
 
 
 
