@@ -11,38 +11,30 @@ diigoBookmarks.config(function($routeProvider) {
         controller : "tagController",
 		  templateUrl : "bookmarklist.html"
     })
+	.when("/search/:searchterm", {
+        controller : "searchController",
+		  templateUrl : "bookmarklist.html"
+    })
 });
 
-diigoBookmarks.controller("dataloaderController", function($scope,$http) {
+diigoBookmarks.controller("dataloaderController", function($scope,$http,$location) {
 		 $http.get("importer/import.php")
     		.then(function(response) {
-        			$scope.tagsFilter="";
-        			$scope.bookmarks = response.data.boomarks;
+            	$scope.bookmarks = response.data.boomarks;
         			angular.forEach($scope.bookmarks, function(bookmark, key) {
 						angular.forEach(bookmark.tags,function(tag,key){
 							allTags.addTag(tag);
 						}); 
 					});
-        			$scope.tags = allTags.getTags("");
-
-        			$scope.$watch("tagsFilter", function(newValue, oldValue) {
-			      $scope.tags = allTags.getTags(newValue); 
-			  });
-
-        			
-
     		}, function(response) {
-        			//Second function handles error
         			$scope.bookmarks = "Something went wrong";
     		});
 });
-
-
 
 diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
 	  $http.get("importer/import.php?tag="+$routeParams.tagname)
     		.then(function(response) {
-        			$scope.tagsFilter="";
+        			//$scope.tagsFilter="";
         			$scope.bookmarks = response.data.boomarks;
         			angular.forEach($scope.bookmarks, function(bookmark, key) {
 						angular.forEach(bookmark.tags,function(tag,key){
@@ -51,11 +43,9 @@ diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
 					});
         			$scope.tags = allTags.getTags("");
 
-        			$scope.$watch("tagsFilter", function(newValue, oldValue) {
+        			/*$scope.$watch("tagsFilter", function(newValue, oldValue) {
 			      $scope.tags = allTags.getTags(newValue); 
-			  });
-
-        			
+			  });*/
 
     		}, function(response) {
         			//Second function handles error
@@ -64,21 +54,48 @@ diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
 
 });
 
+//does not work, fix it
+/* 
+diigoBookmarks.controller("searchController", function($scope,$http,$location,$routeParams) {
+
+			$scope.$watch("searchterm", function(newValue, oldValue) {
+				
+				if($scope.searchterm!==undefined){
+					
+					$location.path('/search/'+$scope.searchterm);
+				
+					$http.get("importer/import.php")
+					.then(function(response) {
+							console.log(response);
+							$scope.bookmarks = response.data.boomarks;
+							angular.forEach($scope.bookmarks, function(bookmark, key) {
+								angular.forEach(bookmark.tags,function(tag,key){
+									allTags.addTag(tag);
+								}); 
+							});
+					}, function(response) {
+							$scope.bookmarks = "Something went wrong";
+							console.log("մտավ սխալ");
+					});
+				}
+				
+			});
+
+});
+*/
+
 diigoBookmarks.controller("tagListController", function($scope,$http,$location) {
-     $http.get("importer/alltags.php")
-    		.then(function(response) {
-        			$scope.alltags = response.data;
-					  console.log(response.data);
-
-    		}, function(response) {
-        			//Second function handles error
-        			$scope.alltags = "Something went wrong";
-    		});
-
+	$http.get("importer/alltags.php")
+		.then(function(response) {
+				$scope.alltags = response.data;
+		}, 
+		function(response) {
+			$scope.alltags = "Something went wrong";
+	});
 
 	$scope.go = function ( path ) {
 		$location.path( path );
-	};		 
+	};
 });
 
 

@@ -15,6 +15,12 @@
 			<h1><!-- Diigo Bookmarks Selfhosted BackUp --></h1>
 	</div>
 	<div class="row">
+		<div class="col-md-9">
+		<form name="searchform" ng-controller="searchController">
+					<input type="text" class="form-control" placeholder="search" ng-model="searchterm">
+		</form>
+		</div>
+		
 		<div class="col-md-9 ng-view">
 		
 		</div>
