@@ -1,4 +1,3 @@
-var baseUrl = 'http://localhost:8080/bookmarks/';
 var diigoBookmarks = angular.module("diigoBookmarks", ["ngRoute"]); 
 var allTags = new tagsRegistry();
 
@@ -19,23 +18,6 @@ diigoBookmarks.config(function($routeProvider) {
     })
 });
 
-function changeUrl(sr){
-	location.assign(baseUrl+'#/search/'+sr["search"].value);
-}
-/*
-myApp.factory('fserchTerm', function () {
-
-    var seachterm = "";
-    return {
-        getTerm: function () {
-            return seachterm;
-        },
-        setTerm: function(term) {
-            seachterm = term;
-        }
-    };
-});
-*/
 
 
 diigoBookmarks.controller("dataloaderController", function($scope,$http,$location) {
@@ -105,6 +87,23 @@ diigoBookmarks.controller("tagListController", function($scope,$http,$location) 
 	$scope.go = function ( path ) {
 		$location.path( path );
 	};
+
+
+	$scope.filterTags = function(items,tagsFilter) {
+		console.log(items);
+		if(tagsFilter==undefined || tagsFilter=="" || tagsFilter.length<3){
+			return items;
+		}
+		var result = {};
+		angular.forEach(items, function(value, key) {
+			if(key.toLowerCase().indexOf(tagsFilter.toLowerCase())>-1){
+				 result[key] = value;
+			}
+
+		});
+		return result;
+	}
+
 });
 
 

@@ -1,3 +1,6 @@
+var baseUrl = 'http://localhost:8080/bookmarks/';
+
+
 var tagsRegistry=function(){
 	var tags = [];
 	this.addTag=function(newtag){
@@ -33,4 +36,9 @@ function compare(a,b) {
   if (a.count > b.count)
     return -1;
   return 0;
+}
+
+
+function changeUrl(sr){
+	location.assign(baseUrl+'#/search/'+sr["search"].value);
 }

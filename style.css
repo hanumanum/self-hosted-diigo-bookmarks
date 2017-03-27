@@ -17,3 +17,11 @@
 .page-header{
 	padding:25px;
 }
+
+.annotcount{
+	cursor: pointer;
+}
+
+.linksfound{
+	padding:5px;
+}

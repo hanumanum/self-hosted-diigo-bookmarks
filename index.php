@@ -31,11 +31,11 @@
 			</div>
 			<hr>
 			<h3>All tags</h3>
-			<input type="text" name="searchtags" id="searchtags" class="form-control" placeholder="filter all tags" ng-model="tagsFilter">
+			<input type="text" name="searchtags" id="searchtags" class="form-control" placeholder="filter tags" ng-model="tagsFilter">
 			<br>
 			<div id="tags-list" ng-controller="tagListController">
-				<a ng-repeat="(key,val) in alltags" ng-href="#/tag/{{key}}">
-					<span class="tag badge badge-primary"  >{{key}} ({{val}})</span>
+				<a ng-repeat="(key,val) in filterTags(alltags,tagsFilter)" ng-href="#/tag/{{key}}">
+					<span class="tag badge badge-primary">{{key}} ({{val}})</span>
 				</a>
 			</div>
 		</div>
