@@ -1,5 +1,7 @@
+var baseUrl = 'http://localhost:8080/bookmarks/';
 var diigoBookmarks = angular.module("diigoBookmarks", ["ngRoute"]); 
 var allTags = new tagsRegistry();
+
 
 diigoBookmarks.config(function($routeProvider) {
     $routeProvider
@@ -17,18 +19,41 @@ diigoBookmarks.config(function($routeProvider) {
     })
 });
 
+function changeUrl(sr){
+	location.assign(baseUrl+'#/search/'+sr["search"].value);
+}
+/*
+myApp.factory('fserchTerm', function () {
+
+    var seachterm = "";
+    return {
+        getTerm: function () {
+            return seachterm;
+        },
+        setTerm: function(term) {
+            seachterm = term;
+        }
+    };
+});
+*/
+
+
 diigoBookmarks.controller("dataloaderController", function($scope,$http,$location) {
 		 $http.get("importer/import.php")
     		.then(function(response) {
             	$scope.bookmarks = response.data.boomarks;
-        			angular.forEach($scope.bookmarks, function(bookmark, key) {
+        			
+					/*angular.forEach($scope.bookmarks, function(bookmark, key) {
 						angular.forEach(bookmark.tags,function(tag,key){
 							allTags.addTag(tag);
 						}); 
 					});
+					*/
     		}, function(response) {
         			$scope.bookmarks = "Something went wrong";
     		});
+			
+			 
 });
 
 diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
@@ -39,9 +64,9 @@ diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
         			angular.forEach($scope.bookmarks, function(bookmark, key) {
 						angular.forEach(bookmark.tags,function(tag,key){
 							allTags.addTag(tag);
-						}); 
+						});
 					});
-        			$scope.tags = allTags.getTags("");
+        			//$scope.tags = allTags.getTags("");
 
         			/*$scope.$watch("tagsFilter", function(newValue, oldValue) {
 			      $scope.tags = allTags.getTags(newValue); 
@@ -54,35 +79,19 @@ diigoBookmarks.controller("tagController", function($scope,$http,$routeParams) {
 
 });
 
-//does not work, fix it
-/* 
-diigoBookmarks.controller("searchController", function($scope,$http,$location,$routeParams) {
 
-			$scope.$watch("searchterm", function(newValue, oldValue) {
-				
-				if($scope.searchterm!==undefined){
-					
-					$location.path('/search/'+$scope.searchterm);
-				
-					$http.get("importer/import.php")
-					.then(function(response) {
-							console.log(response);
-							$scope.bookmarks = response.data.boomarks;
-							angular.forEach($scope.bookmarks, function(bookmark, key) {
-								angular.forEach(bookmark.tags,function(tag,key){
-									allTags.addTag(tag);
-								}); 
+diigoBookmarks.controller("searchController", function($scope,$http,$location,$routeParams) {
+					//$scope.termSearched = $routeParams.searchterm;
+					//console.log($scope.termSearched);
+					$http.get("importer/search.php?srch="+$routeParams.searchterm)
+							.then(function(response) {
+									$scope.bookmarks = response.data.boomarks;
+									
+							}, function(response) {
+									console.log("մտավ սխալ");
 							});
-					}, function(response) {
-							$scope.bookmarks = "Something went wrong";
-							console.log("մտավ սխալ");
-					});
-				}
-				
-			});
 
 });
-*/
 
 diigoBookmarks.controller("tagListController", function($scope,$http,$location) {
 	$http.get("importer/alltags.php")

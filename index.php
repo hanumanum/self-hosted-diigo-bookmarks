@@ -3,10 +3,11 @@
 <head>
 	<title></title>
 	<meta charset="utf-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	 
 </head>
 <body>
 <div class="container" ng-app="diigoBookmarks">
@@ -16,8 +17,8 @@
 	</div>
 	<div class="row">
 		<div class="col-md-9">
-		<form name="searchform" ng-controller="searchController">
-					<input type="text" class="form-control" placeholder="search" ng-model="searchterm">
+		<form name="searchform" onchange="changeUrl(this)">
+					<input type="text" name="search" class="form-control" placeholder="search" ng-model="termSearched">
 		</form>
 		</div>
 		
