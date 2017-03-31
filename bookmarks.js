@@ -1,5 +1,4 @@
 var diigoBookmarks = angular.module("diigoBookmarks", ["ngRoute"]); 
-var allTags = new tagsRegistry();
 
 
 diigoBookmarks.config(function($routeProvider) {
@@ -68,7 +67,6 @@ diigoBookmarks.controller("tagListController", function($scope,$http,$location) 
 
 
 	$scope.filterTags = function(items,tagsFilter) {
-		console.log(items);
 		if(tagsFilter==undefined || tagsFilter=="" || tagsFilter.length<3){
 			return items;
 		}
@@ -81,5 +79,7 @@ diigoBookmarks.controller("tagListController", function($scope,$http,$location) 
 		});
 		return result;
 	}
+
+	
 
 });
