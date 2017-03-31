@@ -1,7 +1,7 @@
 <?php
 $stag = "";
 if(isset($_GET["tag"])){
-	$stag = $_GET["tag"];
+	$stag = explode("|",$_GET["tag"]);
 }
 
 include("settings.php");
@@ -27,12 +27,16 @@ while (($line = fgetcsv($file,'","')) !== FALSE) {
 	$bookmark->url = $line[1];
 	$bookmark->tags = explode(",", $line[2]);
 	$bookmark->tags = str_replace("\""," ",$bookmark->tags);
-	if($stag!=="" && array_search($stag,$bookmark->tags)===false){
+	if(count($stag)>0 && count(array_intersect($stag,$bookmark->tags))!=count($stag)){
 		//print_r($bookmark->tags); 
 		unset($bookmark);
 		continue;
 	}
-
+	/*
+	echo "<pre>";
+	var_dump($bookmark->tags);
+	echo "</pre>";
+	*/
 	$bookmark->annotations=[];
 	$annotAndHiglights = [];
 	if($line[3]){

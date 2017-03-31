@@ -22,8 +22,8 @@
 			</i>
 			<div class="tags">
 				<i class="fa fa-tags" aria-hidden="true">
-					<span ng-repeat="t in b.tags track by $index">
-						<a ng-href="#tag/{{t}}">
+					<span ng-repeat="t in b.tags track by $index" ng-click="select(t)">
+						<a>
 							<span class="tag badge badge-primary" >
 								{{t}}
 							</span>

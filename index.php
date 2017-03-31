@@ -28,13 +28,16 @@
 		<div class="col-md-3" ng-controller="tagListController">
 			<h3>Selected Tags</h3>
 			<div id="selected-tags-list">
+				<a ng-repeat="key in selectedTags" ng-click="unselect(key)">
+					<span class="tag badge badge-primary">{{key}}</span>
+				</a>
 			</div>
 			<hr>
 			<h3>All tags</h3>
 			<input type="text" name="searchtags" id="searchtags" class="form-control" placeholder="filter tags" ng-model="tagsFilter">
 			<br>
 			<div id="tags-list">
-				<a ng-repeat="(key,val) in filterTags(alltags,tagsFilter)" ng-href="#/tag/{{key}}">
+				<a ng-repeat="(key,val) in filterTags(alltags,tagsFilter)" ng-click="select(key)">
 					<span class="tag badge badge-primary">{{key}} ({{val}})</span>
 				</a>
 			</div>
