@@ -4,7 +4,7 @@ if(isset($_GET["tag"])){
 	$stag = $_GET["tag"];
 }
 
-$csvFile = 'bookmarks/3453463_csv_2017_02_24_1106e/3453463_csv_2017_02_24_1106e.csv';
+include("settings.php");
 //$csv = array_map('str_getcsv', file('bookmarks/3453463_csv_2017_02_24_1106e/3453463_csv_2017_02_24_1106e.csv'));
 
 /*echo "<pre>";

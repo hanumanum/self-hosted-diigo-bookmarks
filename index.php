@@ -48,6 +48,7 @@
 
 
 
+<script type="text/javascript" src="settings.js"></script>
 <script type="text/javascript" src="functions.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>

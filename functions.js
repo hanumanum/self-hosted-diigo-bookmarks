@@ -1,5 +1,3 @@
-var baseUrl = 'http://localhost:8080/bookmarks/';
-
 
 var tagsRegistry=function(){
 	var tags = [];
@@ -11,7 +9,6 @@ var tagsRegistry=function(){
 			}
 		}
 		tags.push({"tag":newtag,count:1,showThis:true});
-		//tags.sort(compare);
 	}
 	this.getTags=function(filter){
 		filter = filter.toLowerCase();
