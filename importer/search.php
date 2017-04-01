@@ -7,7 +7,7 @@ else{
    die();
 }
 
-include("settings.php");
+include("../settings.php");
 //$csv = array_map('str_getcsv', file('bookmarks/3453463_csv_2017_02_24_1106e/3453463_csv_2017_02_24_1106e.csv'));
 
 /*echo "<pre>";
@@ -32,6 +32,7 @@ while (($line = fgetcsv($file,'","')) !== FALSE) {
       
       $bookmark->url = $line[1];
       $bookmark->tags = explode(",", $line[2]);
+      $bookmark->tags= array_map('trim',$bookmark->tags);
       $bookmark->tags = str_replace("\""," ",$bookmark->tags);
       
       $bookmark->annotations=[];
